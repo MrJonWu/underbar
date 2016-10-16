@@ -51,6 +51,17 @@
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
+    if (collection !== null && typeof collection === "object"){
+      if (Array.isArray(collection)) {
+        for (var i=0; i<collection.length; i++){
+          iterator(collection[i], i, collection);
+        }
+      } else {
+        for (var key in collection) {
+          iterator(collection[key], key, collection);
+        }
+      }
+    }
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
@@ -82,6 +93,13 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var unique = []
+    for (var i=0; i<array.length; i++) {
+      if (unique.lastIndexOf(array[i]) == -1) {
+        unique.push(array[i]);
+      }
+    }
+    return unique;
   };
 
 
